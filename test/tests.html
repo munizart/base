@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link href="https://unpkg.com/mocha@5.0.5/mocha.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f4f3f1;
+    }
+
+    .tests,
+    .render-here {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .render-here {
+      left: 50%;
+    }
+
+    .tests {
+      right: 50%;
+      border-right: 5px solid #72c1fa;
+    }
+
+    .tests.ended {
+      border-right: 5px solid #9bfa72;
+    }
+
+    .tests.fail {
+      background-clip: content-box;
+      border-right: 5px dashed #fa8072;
+    }
+
+    #mocha-stats {
+      position: absolute;
+    }
+
+    pre {
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tests" id="tests">
+    <div id="mocha"></div>
+  </div>
+
+  <div class="render-here" id="render-here"></div>
+
+  <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+  <script src="https://unpkg.com/mocha@4.0.1/mocha.js"></script>
+  <script>
+    mocha.setup('bdd')
+    mocha.timeout(3000)
+    mocha.growl()
+  </script>
+  <script src="./suite.ts"></script>
+  <script>
+    mocha.run().once('fail', () => {
+      tests.classList.add('fail')
+    }).once('end', () => {
+      tests.classList.add('ended')
+    })
+  </script>
+</body>
+
+</html>
